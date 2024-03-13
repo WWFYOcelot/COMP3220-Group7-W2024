@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"com.example.googletest","l":"CustomMapImage"},{"p":"com.example.googletest","l":"HelloApplication"},{"p":"com.example.googletest","l":"HelloController"},{"p":"com.example.googletest","l":"PotholeDataParser"},{"p":"com.example.googletest","l":"PotholeReader"}];updateSearchResults();
