@@ -1,3 +1,11 @@
+
+/**
+ * @author Rushikesh Patel
+ * @author Faraan Rashid
+ * 
+ * JavaFX front-end for the Windsor Biking Data website/application 
+ */
+
 package com.example.googletest;
 
 import com.google.maps.errors.ApiException;
@@ -23,6 +31,11 @@ public class HelloApplication extends Application{
     private Image currentMapImage = null;
     private final String currentMessage = "Coming Soon!.";
 
+    /**
+     * The entry point for the JavaFX application.
+     *
+     * @param primaryStage The primary stage for this application, onto which the application scene can be set.
+     */
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("JavaFX Frontend Page");
@@ -117,6 +130,12 @@ public class HelloApplication extends Application{
         primaryStage.show();
     }
 
+    /**
+     * Utility method to create a styled button.
+     *
+     * @param text The text to display on the button.
+     * @return The styled button.
+     */
     private Button createStyledButton(String text) {
         Button button = new Button(text);
         button.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; " +
@@ -124,8 +143,11 @@ public class HelloApplication extends Application{
         return button;
     }
 
-    // Method to display a message on the map view
-    // Method to display a message on the map view
+    /**
+     * Display a message on the map view.
+     *
+     * @param message The message to display.
+     */
     private void displayMessage(String message) {
         Label messageLabel = new Label(message);
         messageLabel.setStyle("-fx-font-size: 18px; -fx-text-fill: #000;");
