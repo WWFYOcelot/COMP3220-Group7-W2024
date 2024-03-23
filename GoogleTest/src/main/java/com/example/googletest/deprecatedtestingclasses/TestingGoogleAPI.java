@@ -5,8 +5,10 @@
  * Uses PotholeServiceRequest and GeocodingParser classes to parse JSON objects to access their values
  *
  */
-package com.example.googletest;
+package com.example.googletest.deprecatedtestingclasses;
 
+import com.example.googletest.GeocodingParser;
+import com.example.googletest.PotholeDataParser;
 import com.google.maps.*;
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.GeocodedWaypoint;
@@ -34,15 +36,12 @@ import java.io.IOException;
 import java.util.Arrays;
 
 public class TestingGoogleAPI extends Application {
-    private static String apiKey = "apki-key";
-    private static GeoApiContext context = new GeoApiContext.Builder().apiKey(apiKey).build();
+    private static final String apiKey = "api-key";
+    private static final GeoApiContext context = new GeoApiContext.Builder().apiKey(apiKey).build();
 
     /**
      * Tests the Google Maps API for geocoding by retrieving latitude and longitude for pothole addresses.
      *
-     * @throws IOException    If an I/O error occurs while reading the JSON file.
-     * @throws InterruptedException    If the thread is interrupted while waiting for the geocoding response.
-     * @throws ApiException    If an error occurs while executing the geocoding request.
      */
     @Override
     public void start(Stage primaryStage) {

@@ -18,7 +18,7 @@ import com.google.maps.model.GeocodingResult;
 import java.io.IOException;
 import java.util.List;
 
-class GeocodingParser {
+public class GeocodingParser {
 
     /**
      * Represents the results of a geocoding request.

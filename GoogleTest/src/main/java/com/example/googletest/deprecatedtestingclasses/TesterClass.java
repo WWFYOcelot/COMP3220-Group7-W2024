@@ -1,4 +1,4 @@
-package com.example.googletest;
+package com.example.googletest.deprecatedtestingclasses;
 
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.LatLng;

@@ -11,4 +11,8 @@ module com.example.googletest {
 
     opens com.example.googletest to javafx.fxml;
     exports com.example.googletest;
+    exports com.example.googletest.deprecatedtestingclasses;
+    opens com.example.googletest.deprecatedtestingclasses to javafx.fxml;
+    exports com.example.googletest.testingclasses;
+    opens com.example.googletest.testingclasses to javafx.fxml;
 }
