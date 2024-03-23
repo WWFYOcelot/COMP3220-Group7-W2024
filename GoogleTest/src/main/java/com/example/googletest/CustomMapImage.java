@@ -88,4 +88,19 @@ public class CustomMapImage {
 
         return SwingFXUtils.toFXImage(bufferedImage, null);
     }
+
+    public Image mapWithPath(String start, String end, int width, int height, int zoom) throws IOException, InterruptedException, ApiException {
+        StaticMapsRequest.Path pathMap = new StaticMapsRequest.Path();
+        pathMap.addPoint(start);
+        pathMap.addPoint(end);
+        StaticMapsRequest newMap = StaticMapsApi.newRequest(context, new Size(width, height)).zoom(zoom).path(pathMap);
+
+        byte[] imageData = newMap.await().imageData;
+
+        ByteArrayInputStream bis = new ByteArrayInputStream(imageData);
+        BufferedImage bufferedImage = ImageIO.read(bis);
+
+        return SwingFXUtils.toFXImage(bufferedImage, null);
+
+    }
 }

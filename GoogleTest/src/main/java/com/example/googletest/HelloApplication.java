@@ -1,31 +1,25 @@
-
-/**
- * @author Rushikesh Patel
- * @author Faraan Rashid
- * 
- * JavaFX front-end for the Windsor Biking Data website/application 
- */
-
 package com.example.googletest;
 
 import com.google.maps.errors.ApiException;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
+import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+
 
 import java.io.IOException;
 
-public class HelloApplication extends Application{
+public class HelloApplication extends Application {
 
     // Local variables to store the current map and message
     private Image currentMapImage = null;
@@ -69,30 +63,6 @@ public class HelloApplication extends Application{
         }
         ImageView mapView = new ImageView(currentMapImage);
 
-        // Event handler for buttons other than "Hazardous Areas"
-        EventHandler<ActionEvent> nonHazardousAreasButtonHandler = event -> {
-            // Display the message that the feature is not yet available
-            try {
-                mapView.setImage(customMapImage.mapOfWindsor(800, 600, 12)); // Clear the map
-            } catch (IOException | InterruptedException | ApiException e) {
-                e.printStackTrace();
-            }
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Invalid Action");
-            alert.setHeaderText("Unavailable Feature");
-            alert.setContentText("You have selected a feature that has not yet been developed. We are working on it!");
-            alert.showAndWait();
-            displayMessage(currentMessage);
-        };
-
-        // Set the event handlers for non-Hazardous Areas buttons
-        item1.setOnAction(nonHazardousAreasButtonHandler);
-        item2.setOnAction(nonHazardousAreasButtonHandler);
-        item3.setOnAction(nonHazardousAreasButtonHandler);
-        item5.setOnAction(nonHazardousAreasButtonHandler);
-        item6.setOnAction(nonHazardousAreasButtonHandler);
-        item7.setOnAction(nonHazardousAreasButtonHandler);
-
         // Hazardous Areas button event handler
         item4.setOnAction(event -> {
             try {
@@ -113,17 +83,75 @@ public class HelloApplication extends Application{
         });
 
         // Navbar layout
-        HBox navbar = new HBox(item1, item2, item3, item4, item5, item6, item7, checkBox);
-        navbar.setStyle("-fx-spacing: 10px; -fx-padding: 10px; -fx-background-color: #2196F3; " +
-                "-fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 5);");
+        FlowPane navbar = new FlowPane(item1, item2, item3, item4, item5, item6, item7, checkBox);
+        navbar.setHgap(10);
+        navbar.setStyle("-fx-padding: 10px; -fx-background-color: #2196F3; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 5);");
 
+        VBox topPart = new VBox(heading, navbar);
+        VBox mapBox = new VBox(10, mapView, resetButton);
         // Root layout
-        VBox root = new VBox(heading, navbar, mapView, resetButton);
-        root.setStyle("-fx-background-color: linear-gradient(to bottom, #64B5F6, #81C784, #FFD54F); -fx-padding: 20px; " +
-                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 5);");
+        BorderPane root = new BorderPane();
+        root.setPadding(new Insets(10));
+        root.setStyle("-fx-background-color: linear-gradient(to bottom, #64B5F6, #81C784, #FFD54F); -fx-padding: 20px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 5);");
+        root.setTop(topPart);
+        root.setLeft(mapBox);
+
+        // Event handler for buttons other than "Hazardous Areas"
+        EventHandler<ActionEvent> nonHazardousAreasButtonHandler = event -> {
+            // Display the message that the feature is not yet available
+            try {
+                mapView.setImage(customMapImage.mapOfWindsor(800, 600, 12)); // Clear the map
+            } catch (IOException | InterruptedException | ApiException e) {
+                e.printStackTrace();
+            }
+            root.setRight(null);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Action");
+            alert.setHeaderText("Unavailable Feature");
+            alert.setContentText("You have selected a feature that has not yet been developed. We are working on it!");
+            alert.showAndWait();
+            displayMessage(currentMessage);
+        };
+
+        // Set the event handlers for non-Hazardous Areas buttons
+        item1.setOnAction(nonHazardousAreasButtonHandler);
+        item3.setOnAction(nonHazardousAreasButtonHandler);
+        item5.setOnAction(nonHazardousAreasButtonHandler);
+        item6.setOnAction(nonHazardousAreasButtonHandler);
+        item7.setOnAction(nonHazardousAreasButtonHandler);
+
+
+        item2.setOnAction(event -> {
+            // Display text boxes for start and end
+            TextField startTextField = new TextField();
+            TextField endTextField = new TextField();
+            Button resetLocs = createStyledButton("Reset");
+            Button takeInput = createStyledButton("Enter");
+            FlowPane inputButtons = new FlowPane(takeInput, resetLocs);
+            inputButtons.setHgap(10);
+            VBox textBoxes = new VBox(new Label("Start:"), startTextField, new Label("End:"), endTextField, inputButtons);
+            root.setRight(textBoxes);
+            takeInput.setOnAction(event2 -> {
+                try {
+                    mapView.setImage(customMapImage.mapWithPath(startTextField.getText(), endTextField.getText(), 800, 600, 12));
+                } catch (IOException | InterruptedException | ApiException e) {
+                    e.printStackTrace();
+                }
+            });
+            resetLocs.setOnAction(event2 -> {
+                startTextField.setText("");
+                endTextField.setText("");
+                try {
+                    mapView.setImage(customMapImage.mapOfWindsor(800, 600, 12));
+                } catch (IOException | InterruptedException | ApiException e) {
+                    e.printStackTrace();
+                }
+            });
+        });
+
 
         // Create scene and set it in the stage
-        Scene scene = new Scene(root, 800, 600);
+        Scene scene = new Scene(root, 1000, 800);
         primaryStage.setScene(scene);
 
         // Show the stage
@@ -158,9 +186,6 @@ public class HelloApplication extends Application{
         // Create a VBox to hold the message label
         VBox messageBox = new VBox(messageLabel);
 
-        // Set the VBox as the content of the map view
-        ImageView mapView = new ImageView();
-        mapView.setImage(null);
-        mapView.getContentBias();
+        // Set the VBox
     }
 }
