@@ -34,7 +34,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 public class TestingGoogleAPI extends Application {
-    private static String apiKey = "AIzaSyBn5POt-ThaW903dR_6OuMuy2uJkH-nQfc";
+    private static String apiKey = "apki-key";
     private static GeoApiContext context = new GeoApiContext.Builder().apiKey(apiKey).build();
 
     /**
