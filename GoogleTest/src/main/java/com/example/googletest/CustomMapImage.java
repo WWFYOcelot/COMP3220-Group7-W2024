@@ -29,7 +29,7 @@ public class CustomMapImage {
     /**
      * API key for accessing Google Maps services.
      */
-    private final String apiKey = "AIzaSyBn5POt-ThaW903dR_6OuMuy2uJkH-nQfc";
+    private final String apiKey = "api-key";
     private final GeoApiContext context = new GeoApiContext.Builder().apiKey(apiKey).build();
 
     /**
