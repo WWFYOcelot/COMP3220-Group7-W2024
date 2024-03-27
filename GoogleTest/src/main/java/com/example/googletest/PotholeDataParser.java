@@ -4,6 +4,10 @@
  *
  * The PotholeServiceRequest class provides structures for parsing pothole service requests from JSON files acquired from
  *  Windsor's Open Data service,whose data values are then accessible through its methods.
+ *
+ * Note that while this class should use proper encapsulation, ie. private fields and getters and setters, the JSON parser we used wasn't configured to handle this.
+ *  As we considered reconfiguring the JSON parser to be outside the scope of this iteration, we opted to postpone this change to a future iteration.
+ *
  */
 
 package com.example.googletest;
