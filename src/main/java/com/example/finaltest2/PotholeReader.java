@@ -24,7 +24,7 @@ public class PotholeReader {
     /**
      * API key for accessing Google Maps services.
      */
-    private final String apiKey = "AIzaSyBn5POt-ThaW903dR_6OuMuy2uJkH-nQfc";
+    private final String apiKey = "google-maps-api-key";
 
     /**
      * GeoApiContext for making Google Maps API requests.
